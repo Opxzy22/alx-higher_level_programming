@@ -14,8 +14,8 @@ if __name__ == "__main__":
     mydb = MySQLdb.connect(host="localhost", port=3306, user=username,
                            passwd=password, db=dbName)
     cursor = mydb.cursor()
-    quer = "SELECT * FROM states WHERE name LIKE BINARY '{0}%' ORDER BY id ASC"
-    cursor.execute(quer.format(stateName))
+    quer = "SELECT * FROM states WHERE name = s% BY id ASC"
+    cursor.execute(quer, (stateName,))
     states = cursor.fetchall()
 
     for state in states:
