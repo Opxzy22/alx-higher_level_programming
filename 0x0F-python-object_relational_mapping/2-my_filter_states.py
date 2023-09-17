@@ -15,7 +15,7 @@ if __name__ == "__main__":
     c = db.cursor()
 
     query = "SELECT * states WHERE name LIKE BINARY = s% ORDER BY ASC"
-    c.execute(query, (state_name))
+    c.execute(query, (f"{state_name}%",))
 
     result = c.fetchall()
 
