@@ -12,8 +12,8 @@ db = MySQLdb.connect(host="local host", port=3306, user=username,
 
 c = db.cursor()
 
-Nstate = c.execute ("select * FROM states WHERE UPPER(name) LIKE 'N%'")
-c.fetchall()
+c.execute ("select * FROM states WHERE UPPER(name) LIKE 'N%' ORDER by id ASC")
+Nstate = c.fetchall()
 
 for state in Nstate:
     print(state)
