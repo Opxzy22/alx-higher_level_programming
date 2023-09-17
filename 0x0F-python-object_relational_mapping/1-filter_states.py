@@ -17,7 +17,7 @@ db = MySQLdb.connect(
 
 c = db.cursor()
 
-c.execute("select * FROM states WHERE UPPER(name) LIKE 'N%' ORDER by id ASC")
+c.execute("select * FROM states WHERE name BINARY LIKE 'N%' ORDER BY id ASC")
 Nstate = c.fetchall()
 
 for state in Nstate:
