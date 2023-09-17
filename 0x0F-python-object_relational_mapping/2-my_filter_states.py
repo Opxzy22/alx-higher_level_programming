@@ -14,7 +14,7 @@ if __name__ == "__main__":
             port=3306, user=username, passwd=password, db=database)
     c = db.cursor()
 
-    query = "SELECT * states WHERE name LIKE BINARY '{}' ORDER BY ASC"
+    query = "SELECT * FROM states WHERE name LIKE BINARY '{}'\ ORDER BY ASC"
     c.execute(query, .format(state_name))
 
     result = c.fetchall()
