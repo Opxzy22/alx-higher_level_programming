@@ -14,7 +14,7 @@ if __name__ == "__main__":
             port=3306, user=username, passwd=password, db=database)
     c = db.cursor()
 
-    query = "SELECT * FROM states WHERE name LIKE BINARY '{0}%' ORDER BY ASC"
+    query = "SELECT * FROM states WHERE name LIKE BINARY '{0}%' ORDER BY id ASC"
     c.execute(query.format(state_name))
 
     result = c.fetchall()
@@ -22,5 +22,5 @@ if __name__ == "__main__":
     for arg in result:
         print(arg)
 
-        c.close()
-        db.close()
+    c.close()
+    db.close()
