@@ -17,7 +17,7 @@ if __name__ = "__main__":
 
     c.execute("SELECT cities.name\
                     FROM cities\
-                    INNER JOIN states ON cities.state.id = states.id\
+                    LEFT JOIN states ON cities.state.id = states.id\
                     WHERE states.name = %s\
                     ORDER BY cities.id ASC", (stateName,))
 
