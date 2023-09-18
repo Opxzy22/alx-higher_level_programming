@@ -15,14 +15,15 @@ if __name__ = "__main__":
 
     c = db.cursor()
 
-    c.execute("SELECT cities.id, cities.name, states.name \
-                    JOIN states ON cities.state.id = states.id \
+    c.execute("SELECT cities.name \
+                    FROM cities \
+                    INNER JOIN states ON cities.state.id = states.id \
                     WHERE states.name = %s \
                     ORDER BY cities.id ASC", (stateName,))
 
     cities = c.fetchall()
 
-    print(", ".join(city[0] for city in cities))
+    print(", ".join(city[1] for city in cities))
 
     c.close()
     db.close()
