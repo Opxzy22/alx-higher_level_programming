@@ -1,29 +1,33 @@
 #!/usr/bin/python3
-
-if __name__ = "__main__":
-    import sys
+"""
+lists all cities from the database hbtn_0e_0_usa
+"""
+if __name__ == "__main__":
     import MySQLdb
+    import sys
 
     username = sys.argv[1]
     password = sys.argv[2]
-    database = sys.argv[3]
+    dbName = sys.argv[3]
     stateName = sys.argv[4]
 
-    db = MySQLdb.connect(
-            host="localhost,
-            port=3306, user=username, passwd=password, db=database)
+    mydb = MySQLdb.connect(host="localhost", port=3306, user=username,
+                           passwd=password, db=dbName)
+    cursor = mydb.cursor()
+    quer = "SELECT cities.name FROM cities JOIN states ON states.id = "
+    quer = quer + "cities.state_id WHERE states.name = %s"
+    cursor.execute(quer, (stateName,))
+    cities = cursor.fetchall()
+    str = ""
+    inx = 0
+    deli = ", "
 
-    c = db.cursor()
-
-    c.execute("SELECT cities.name\
-                    FROM cities\
-                    LEFT JOIN states ON cities.state.id = states.id\
-                    WHERE states.name = %s\
-                    ORDER BY cities.id ASC", (stateName,))
-
-    cities = c.fetchall()
-
-    print(", ".join([city[0] for city in cities]))
-
-    c.close()
-    db.close()
+    for city in cities:
+        if inx == len(cities) - 1:
+            str = str + city[0]
+            break
+        str = str + city[0] + deli
+        inx = inx + 1
+    print(str)
+    cursor.close()
+    mydb.close()

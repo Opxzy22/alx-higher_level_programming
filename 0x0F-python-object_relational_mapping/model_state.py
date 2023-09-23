@@ -1,18 +1,29 @@
 #!/usr/bin/python3
-"""a python file that contains the class definition of a State
-and an instance Base = declarative_base():"""
-
-from sqlalchemy import create_engine, Column, Integer, String, Sequence
+"""
+Defines a class State an intance of Base = declarative_base
+"""
+import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-"""Import SQLAlchemy"""
-
+from sqlalchemy import create_engine, Column, Integer, String
 
 Base = declarative_base()
-"""Define the database models"""
 
 
 class State(Base):
+
+    """
+    Defines a class State
+    """
     __tablename__ = 'states'
 
-    id = column(integer, unique=True, nullable=False, primary_key=True)
-    name = column(string(128), nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False,
+                autoincrement=True)
+    name = Column(String(128), nullable=False)
+
+
+if __name__ == "__main__":
+    url = 'mysql+mysqldb://root:password@localhost:3306/database'
+
+    engine = create_engine(url)
+
+    Base.metadata.create_all(engine)
